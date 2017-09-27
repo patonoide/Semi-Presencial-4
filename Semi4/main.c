@@ -19,55 +19,44 @@
  * 
  */
 int main(int argc, char** argv) {
-    int opcao =0;
+    int opcao = 0;
 
 
     printf("Portinho e MiniMarina Productions EC e nois 2017.\n");
     do {
-        printf("\nDigite a opcao desejada de acordo com o menu\n 1-Criar lista\n 2-Inserir aluno na lista\n 3-Excluir aluno da lista\n 4-Imprimir a lista\n 5-Imprimir nos na lista\n 6-buscar aluno na lista\n 7-Liberar lista \n 8-Sair\nOpcao:");
+        printf("\nDigite a opcao desejada de acordo com o menu\n 1-Cadastrar Aluno \n 2-Excluir Aluno \n 3-Mostrar Alunos \n 4-Sair\nOpcao:");
         scanf("%i", &opcao);
-
+        setbuf(stdin, NULL);
         switch (opcao) {
             case 1:
             {
-              
+
                 break;
             }
             case 2:
             {
 
-           
+
                 break;
             }
             case 3:
             {
-              
+
                 break;
             }
             case 4:
             {
-                
+                printf("\nSaindo...\n");
                 break;
             }
-            case 5:
+            default:
             {
-               
-                break;
-            }
-            case 6:
-            {
-               
-                break;
-            }
-            case 7:
-            {
-                
-                break;
+                printf("\nOpcao invalida.");
             }
 
         }
-    } while (opcao != 8);
-    printf("\nSaindo...\n");
+    } while (opcao != 4);
+
     return (EXIT_SUCCESS);
 }
 
