@@ -17,6 +17,7 @@
 #include <string.h>
 
 Lista * iniciar() {
+    //Atualiza a lista de acordo com o arquivo
     Lista * lista = (Lista*) malloc(sizeof (Lista));
     FILE *file;
     char texto [250];
@@ -32,7 +33,7 @@ Lista * iniciar() {
         tamanho++;
     }
     fclose(file);
-
+    //Lê o número de linhas e dividi por 4 para dar o número de alunos.
     lista->aluno = (Aluno *) malloc((tamanho / 4) * sizeof (Aluno));
     lista->n = tamanho / 4;
 
@@ -40,6 +41,7 @@ Lista * iniciar() {
 
 
     }
+    //Lê cada linha e atribui o campo lido de acordo com a sua posição no arquivo.
     while ((fscanf(file, "%s\n", texto) != EOF)) {
         setbuf(stdin, NULL);
 
@@ -66,6 +68,7 @@ Lista * iniciar() {
 
 
     }
+    //Reseta o ponteiro do aluno.
     for (i = 0; i < x; i++) {
         lista->aluno--;
     }
@@ -81,28 +84,30 @@ void cadastrar() {
     char email[80];
     char matricula[20];
     char telefone[10];
+    //Lê os dados para cadastrar no arquivo
+    setbuf(stdin, NULL);
+    printf("Digite o nome do aluno a ser cadastrado: ");
+    fgets(nome, sizeof (nome), stdin);
+    setbuf(stdin, NULL);
+
+    printf("Digite o email do aluno: ");
+    fgets(email, sizeof (email), stdin);
+    setbuf(stdin, NULL);
+
+    printf("Digite a matricula do aluno: ");
+    fgets(matricula, sizeof (matricula), stdin);
+    setbuf(stdin, NULL);
+
+    printf("Digite o telefone do aluno: ");
+    fgets(telefone, sizeof (telefone), stdin);
+    setbuf(stdin, NULL);
+    
+    //Abre o arquivo em modo append para não sob-escrever os dados já escritos.
     if ((file = fopen("entrada.txt", "a")) == NULL) {
         printf("Acesso negado.");
 
     }
-    setbuf(stdin, NULL);
-    printf("Digite o nome do aluno a ser cadastrado: ");
-    fgets(nome, sizeof(nome), stdin);
-    setbuf(stdin, NULL);
-
-    printf("Digite o email do aluno: ");
-    fgets(email, sizeof(email), stdin);
-    setbuf(stdin, NULL);
-
-    printf("Digite a matricula do aluno: ");
-    fgets(matricula, sizeof(matricula), stdin);
-    setbuf(stdin, NULL);
-
-    printf("Digite o telefone do aluno: ");
-    fgets(telefone, sizeof(telefone), stdin);
-    setbuf(stdin, NULL);
-
-
+    //Escreve os dados no arquivo.
     fputs(nome, file);
     setbuf(stdin, NULL);
     fputs(email, file);
@@ -117,6 +122,7 @@ void cadastrar() {
 }
 
 void mostrar(Lista * lista) {
+    //Mostra os dados na lista.
     int i;
     Lista * p = lista;
     for (i = 0; i < lista->n; i++) {
@@ -133,19 +139,21 @@ void excluir(Lista * lista, char * mat) {
     Lista *p = lista;
     int cont = 0;
     int opcao = 0;
-    char matricula[20];
+    //Cria um novo arquivo chamado novo.txt em modo de escrita.
     if ((file = fopen("novo.txt", "w")) == NULL) {
         printf("Acesso negado.");
 
     }
+    //Faz um loop de acordo com o número de alunos na lista
     for (cont = 0; cont < p->n; cont++) {
-        
-       
-        opcao = strcmp(p->aluno->matricula, strtok(mat,"\n"));
-      
-        
-        if ( opcao != 0) {
 
+        //Compara a matricula na lista com a informada
+        //strtok foi usado para tirar o \n no final inserido pelo fgets
+        opcao = strcmp(p->aluno->matricula, strtok(mat, "\n"));
+
+
+        if (opcao != 0) {
+            //Escreve os dados no arquivo novo
             fputs(p->aluno->nome, file);
             fputs("\n", file);
             setbuf(stdin, NULL);
@@ -165,14 +173,14 @@ void excluir(Lista * lista, char * mat) {
     fclose(file);
 
 
-
+    //Deleta o arquivo antigo
     if (remove("entrada.txt") != 0) {
         printf("Erro");
     }
 
 
 
-
+    //Renomeia o arquivo novo para o mesmo nome do antigo
     if (rename("novo.txt", "entrada.txt") != 0) {
         printf("Erro");
     }

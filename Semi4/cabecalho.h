@@ -22,7 +22,7 @@ struct aluno{
     
 }list;
 typedef struct aluno Aluno;
-
+//Lista contem ponteiro para o aluno e o numero de alunos
 struct lista{
     Aluno * aluno;
     int n;

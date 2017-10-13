@@ -22,9 +22,11 @@ int main(int argc, char** argv) {
     int opcao = 0;
     Lista * lista;
     char mat[20];
+    
+    
     printf("Portinho e MiniMarina Productions EC e nois 2017.\n");
     do {
-
+        //Atualiza a lista sempre que entra no loop.
         lista = iniciar();
         printf("\nDigite a opcao desejada de acordo com o menu\n 1-Cadastrar Aluno \n 2-Excluir Aluno \n 3-Mostrar Alunos \n 4-Sair\nOpcao:");
         scanf("%i", &opcao);
@@ -37,8 +39,8 @@ int main(int argc, char** argv) {
             }
             case 2:
             {
+                //Lê a mtricula do aluno que será exlcuido
                 printf("Digite a matricula de quem voce deseja excluir:  \n");
-                setbuf(stdin, NULL);
                 fgets(mat, sizeof(mat), stdin);
                 setbuf(stdin, NULL);
                 excluir(lista,mat);
