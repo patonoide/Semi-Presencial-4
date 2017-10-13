@@ -20,28 +20,34 @@
  */
 int main(int argc, char** argv) {
     int opcao = 0;
-
-
+    Lista * lista;
+    char mat[20];
     printf("Portinho e MiniMarina Productions EC e nois 2017.\n");
     do {
+
+        lista = iniciar();
         printf("\nDigite a opcao desejada de acordo com o menu\n 1-Cadastrar Aluno \n 2-Excluir Aluno \n 3-Mostrar Alunos \n 4-Sair\nOpcao:");
         scanf("%i", &opcao);
         setbuf(stdin, NULL);
         switch (opcao) {
             case 1:
             {
-
+                cadastrar();
                 break;
             }
             case 2:
             {
-
-
+                printf("Digite a matricula de quem voce deseja excluir:  \n");
+                setbuf(stdin, NULL);
+                fgets(mat, sizeof(mat), stdin);
+                setbuf(stdin, NULL);
+                excluir(lista,mat);
+                printf("Sucesso");
                 break;
             }
             case 3:
             {
-
+                mostrar(lista);
                 break;
             }
             case 4:
@@ -55,6 +61,7 @@ int main(int argc, char** argv) {
             }
 
         }
+
     } while (opcao != 4);
 
     return (EXIT_SUCCESS);

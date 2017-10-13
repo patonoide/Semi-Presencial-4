@@ -12,11 +12,25 @@
  * Created on 26 de Setembro de 2017, 14:09
  */
 
+
+
 struct aluno{
     char nome[80];
     char email[80];
     char matricula[20];
     char telefone[10];
     
-};
+}list;
+typedef struct aluno Aluno;
 
+struct lista{
+    Aluno * aluno;
+    int n;
+};
+typedef struct lista Lista;
+
+
+void excluir(Lista * lista, char *mat);
+Lista * iniciar();
+void cadastrar();
+void mostrar(Lista * lista);
