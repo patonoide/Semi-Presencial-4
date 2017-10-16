@@ -19,6 +19,7 @@
 Lista * iniciar() {
     //Atualiza a lista de acordo com o arquivo
     Lista * lista = (Lista*) malloc(sizeof (Lista));
+    lista->prox = NULL;
     FILE *file;
     char texto [250];
     int cont = 0, x = 0;
@@ -34,39 +35,37 @@ Lista * iniciar() {
     }
     fclose(file);
     //Lê o número de linhas e dividi por 4 para dar o número de alunos.
-    lista->aluno = (Aluno *) malloc((tamanho / 4) * sizeof (Aluno));
-    lista->n = tamanho / 4;
-
+ 
     if ((file = fopen("entrada.txt", "rt")) == NULL) {
-
-
     }
+    
     //Lê cada linha e atribui o campo lido de acordo com a sua posição no arquivo.
     while ((fscanf(file, "%[^\n]\n", texto) != EOF)) {
+        Lista * novo = (Lista*) malloc(sizeof (Lista));
+        Aluno *a = (Aluno *) malloc((tamanho / 4) * sizeof (Aluno));
+        novo->n = tamanho / 4;
+        
         setbuf(stdin, NULL);
 
         if (cont == 0) {
-            strcpy(lista->aluno->nome, texto);
+            strcpy(a->nome, texto);
         }
         if (cont == 1) {
-            strcpy(lista->aluno->email, texto);
+            strcpy(a->email, texto);
         }
         if (cont == 2) {
-            strcpy(lista->aluno->matricula, texto);
+            strcpy(a->matricula, texto);
         }
         if (cont == 3) {
-            strcpy(lista->aluno->telefone, texto);
+            strcpy(a->telefone, texto);
             cont = 0;
-            lista->aluno++;
+            novo->aluno = a;
             x++;
             cont--;
         }
-
+        
+        novo->prox = lista;
         cont++;
-
-
-
-
     }
     //Reseta o ponteiro do aluno.
     for (i = 0; i < x; i++) {
@@ -122,15 +121,12 @@ void cadastrar() {
 }
 
 void mostrar(Lista * lista) {
-    //Mostra os dados na lista.
-    int i;
-    Lista * p = lista;
-    for (i = 0; i < lista->n; i++) {
-        printf("\nNome: %s", p->aluno->nome);
-        printf("\nE-mail: %s", p->aluno->email);
-        printf("\nMatricula: %s", p->aluno->matricula);
-        printf("\nTelefone: %s\n", p->aluno->telefone);
-        p->aluno++;
+    if(lista!=NULL){
+        printf("\nNome: %s", lista->aluno->nome);
+        printf("\nE-mail: %s", lista->aluno->email);
+        printf("\nMatricula: %s", lista->aluno->matricula);
+        printf("\nTelefone: %s\n", lista->aluno->telefone);
+        mostrar(lista->prox);
     }
 }
 
@@ -167,7 +163,7 @@ void excluir(Lista * lista, char * mat) {
             fputs("\n", file);
             setbuf(stdin, NULL);
         }
-        p->aluno++;
+        p->aluno=p->prox;
 
     }
     fclose(file);
