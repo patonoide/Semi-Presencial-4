@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
             }
 
         }
-
+        free(lista);
     } while (opcao != 4);
 
     return (EXIT_SUCCESS);
