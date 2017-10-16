@@ -29,7 +29,7 @@ Lista * iniciar() {
 
     }
 
-    while ((fscanf(file, "%s\n", texto) != EOF)) {
+    while ((fscanf(file, "%[^\n]\n", texto) != EOF)) {
         tamanho++;
     }
     fclose(file);
@@ -42,7 +42,7 @@ Lista * iniciar() {
 
     }
     //Lê cada linha e atribui o campo lido de acordo com a sua posição no arquivo.
-    while ((fscanf(file, "%s\n", texto) != EOF)) {
+    while ((fscanf(file, "%[^\n]\n", texto) != EOF)) {
         setbuf(stdin, NULL);
 
         if (cont == 0) {
@@ -109,13 +109,13 @@ void cadastrar() {
     }
     //Escreve os dados no arquivo.
     fputs(nome, file);
-    setbuf(stdin, NULL);
+    
     fputs(email, file);
-    setbuf(stdin, NULL);
+    
     fputs(matricula, file);
-    setbuf(stdin, NULL);
+    
     fputs(telefone, file);
-    setbuf(stdin, NULL);
+  
 
 
     fclose(file);
