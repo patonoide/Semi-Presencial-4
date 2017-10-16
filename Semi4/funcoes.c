@@ -25,7 +25,7 @@ Lista * iniciar() {
     int tamanho = 0;
     int i;
     if ((file = fopen("entrada.txt", "rt")) == NULL) {
-
+        printf("\nArquivo novo criao.");
 
     }
 

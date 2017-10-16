@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
             case 1:
             {
                 cadastrar();
-               // printf("Aluno cadastrado com sucesso!!!");
+                printf("Aluno cadastrado com sucesso!!!");
                 break;
             }
             case 2:
