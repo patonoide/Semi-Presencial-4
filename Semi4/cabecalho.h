@@ -26,7 +26,7 @@ typedef struct aluno Aluno;
 struct lista{
     Aluno * aluno;
     int n;
-    Aluno  * prox; 
+    struct lista  * prox; 
 };
 typedef struct lista Lista;
 

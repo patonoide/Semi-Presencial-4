@@ -18,8 +18,7 @@
 
 Lista * iniciar() {
     //Atualiza a lista de acordo com o arquivo
-    Lista * lista = (Lista*) malloc(sizeof (Lista));
-    lista->prox = NULL;
+    Lista * lista = NULL;
     FILE *file;
     char texto [250];
     int cont = 0, x = 0;
@@ -41,12 +40,8 @@ Lista * iniciar() {
     
     //Lê cada linha e atribui o campo lido de acordo com a sua posição no arquivo.
     while ((fscanf(file, "%[^\n]\n", texto) != EOF)) {
-        Lista * novo = (Lista*) malloc(sizeof (Lista));
         Aluno *a = (Aluno *) malloc((tamanho / 4) * sizeof (Aluno));
-        novo->n = tamanho / 4;
-        
         setbuf(stdin, NULL);
-
         if (cont == 0) {
             strcpy(a->nome, texto);
         }
@@ -59,23 +54,29 @@ Lista * iniciar() {
         if (cont == 3) {
             strcpy(a->telefone, texto);
             cont = 0;
+            Lista * novo = (Lista*) malloc(sizeof (Lista));
             novo->aluno = a;
+            novo->n = tamanho / 4;
+            novo->prox = lista;
             x++;
             cont--;
         }
         
-        novo->prox = lista;
         cont++;
     }
     //Reseta o ponteiro do aluno.
-    for (i = 0; i < x; i++) {
-        lista->aluno--;
+    while (lista != NULL) {
+        Lista *t = lista->prox;
+        printf("\n %s", lista->aluno->matricula);
+        free(lista);
+       lista = t;
     }
-
+    
     fclose(file);
 
     return lista;
 }
+
 
 void cadastrar() {
     FILE *file;
@@ -163,7 +164,7 @@ void excluir(Lista * lista, char * mat) {
             fputs("\n", file);
             setbuf(stdin, NULL);
         }
-        p->aluno=p->prox;
+        p=p->prox;
 
     }
     fclose(file);
